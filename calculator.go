@@ -21,6 +21,7 @@ func main() {
 	router.HandleFunc("/calc/div/{a}/{b}", Div).Methods("GET")
 	router.HandleFunc("/calc/mul/{a}/{b}", Mul).Methods("GET")
 	router.HandleFunc("/calc/history", GetHistory).Methods("GET")
+	router.HandleFunc("/calc/health-check", HealthCheck).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
@@ -86,4 +87,8 @@ func Div(w http.ResponseWriter,  r *http.Request) {
 
 func GetHistory(w http.ResponseWriter,  r *http.Request) {
 	json.NewEncoder(w).Encode(history)
+}
+
+func HealthCheck(w http.ResponseWriter,  r *http.Request) {
+	json.NewEncoder(w).Encode("Ok")
 }
